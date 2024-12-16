@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\Table;
 
@@ -36,4 +37,8 @@ class Cat
     #[OneToOne(targetEntity: MedicalCard::class, inversedBy: 'cat', cascade: ['persist', 'remove'])]
     #[JoinColumn(name: 'medical_card_id', referencedColumnName: 'id')]
     private MedicalCard $medicalCard;
+
+    #[ManyToOne(targetEntity: Cage::class)]
+    #[JoinColumn(name: 'cage_id', referencedColumnName: 'id')]
+    private Cage $cage;
 }
