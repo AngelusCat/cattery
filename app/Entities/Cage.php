@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Enums\Gender;
+use App\ValueObjects\CageCapacity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
@@ -22,8 +23,15 @@ class Cage
     private int $id;
     #[OneToMany(targetEntity: Cat::class)]
     private Collection $cats;
-
-
+    private CageCapacity $capacity;
+    public function addCat(Cat $cat): void
+    {
+        $this->cats->add($cat);
+    }
+    public function removeCat(): void
+    {
+        //
+    }
 
     public function isEmpty(): bool
     {
