@@ -2,8 +2,8 @@
 
 namespace App\Entities;
 
+use App\Enums\Gender;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\Cache;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -31,8 +31,23 @@ class Cat
     #[Column(type: Types::SMALLINT, options: ['unsigned' => true])]
     private int $age;
 
+    #[Column(type: Types::STRING)]
+    private Gender $gender;
+
     #[Column(name: 'is_adopted', type: Types::BOOLEAN)]
     private bool $isAdopted;
+
+    #[Column(name: 'is_sterilized', type: Types::BOOLEAN)]
+    private bool $isSterilized;
+
+    #[Column(name: 'is_sick', type: Types::BOOLEAN)]
+    private bool $isSick;
+
+    #[Column(name: 'is_aggressive', type: Types::BOOLEAN)]
+    private bool $isAggressive;
+
+    #[Column(name: 'is_too_active', type: Types::BOOLEAN)]
+    private bool $isTooActive;
 
     #[OneToOne(targetEntity: MedicalCard::class, inversedBy: 'cat', cascade: ['persist', 'remove'])]
     #[JoinColumn(name: 'medical_card_id', referencedColumnName: 'id')]
