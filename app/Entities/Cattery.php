@@ -17,13 +17,26 @@ class Cattery
         $averageCages = $this->getAverageCages();
         $spaciousCages = $this->getSpaciousCages();
 
-        if ($singleCages) {
-            if ($cat->isSick() || $cat->isAggressive()) {
+        if ($cat->isSick() || $cat->isAggressive()) {
+            if ($singleCages) {
                 //получить любую одиночную клетку
                 // $cage->addCat($cat);
                 return true;
+            } else {
+                //получить одиночные клетки со здоровыми неагрессивными кошками
+                //взять кошку из клетки
+                //переместить в другую клетку
+                //поместить больную или агрессивную кошку в одиночную клетку
+                //$this->placeCatInCattery(спокойная здоровая кошка);
+                return true;
+
+//                if(кошку нельзя переместить) {
+//                    return false;
+//                }
             }
         }
+
+        
 
 
 
