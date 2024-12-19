@@ -7,8 +7,27 @@ use Illuminate\Support\Collection;
 class Cattery
 {
     private Collection $cages;
-    public function placeCatInCattery(Cat $cat): void
+    public function placeCatInCattery(Cat $cat): bool
     {
+        if ($this->areAllCagesOccupied()) {
+            return false;
+        }
+
+        $singleCages = $this->getSingleCages();
+        $averageCages = $this->getAverageCages();
+        $spaciousCages = $this->getSpaciousCages();
+
+        if ($singleCages) {
+            if ($cat->isSick() || $cat->isAggressive()) {
+                //получить любую одиночную клетку
+                // $cage->addCat($cat);
+                return true;
+            }
+        }
+
+
+
+
         /**
          * есть ли свободные и полусвободные клетки?
          * да -> продолжить
@@ -47,12 +66,12 @@ class Cattery
          * нельзя поместить кошку
          */
     }
-    private function areThereCagesWhereYouCanPutCat(): bool
+    private function areAllCagesOccupied(): bool
     {
-        //есть свободные или полусвободные клетки?
+        //все клетки заняты
     }
 
-    private function getSingleCages(): Collection
+    private function getSingleCages(): ?Collection
     {
         //возвращает одиночные клетки
     }

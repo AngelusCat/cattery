@@ -56,4 +56,28 @@ class Cat
     #[ManyToOne(targetEntity: Cage::class)]
     #[JoinColumn(name: 'cage_id', referencedColumnName: 'id')]
     private Cage $cage;
+    public function isAdopted(): bool
+    {
+        return $this->isAdopted;
+    }
+
+    public function isSterilized(): bool
+    {
+        return $this->isSterilized;
+    }
+
+    public function isSick(): bool
+    {
+        return $this->isSick;
+    }
+
+    public function isAggressive(): bool
+    {
+        return $this->isAggressive;
+    }
+
+    public function isTooActive(): bool
+    {
+        return $this->isTooActive;
+    }
 }
