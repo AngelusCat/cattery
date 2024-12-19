@@ -19,24 +19,32 @@ class Cattery
 
         if ($cat->isSick() || $cat->isAggressive()) {
             if ($singleCages) {
-                //получить любую одиночную клетку
-                // $cage->addCat($cat);
+                //получить любую клетку
+                //$cage->addCat($cat);
                 return true;
-            } else {
-                //получить одиночные клетки со здоровыми неагрессивными кошками
-                //взять кошку из клетки
-                //переместить в другую клетку
-                //поместить больную или агрессивную кошку в одиночную клетку
-                //$this->placeCatInCattery(спокойная здоровая кошка);
-                return true;
+            }
+        }
 
-//                if(кошку нельзя переместить) {
+        if ($cat->isTooActive()) {
+            if ($averageCages) {
+                //получить только полностью свободные average
+                //свободных нет
+//                if (свободные есть) {
+//                    получить любую
+//                    $cage->addCat($cat);
+//                    return true;
+//                }
+            }
+
+            if ($spaciousCages) {
+                //получить только те, в которых есть место (активная кошка занимает 2 места, всего 4)
+//                if (свободных нет) {
 //                    return false;
 //                }
             }
         }
 
-        
+
 
 
 
@@ -89,12 +97,12 @@ class Cattery
         //возвращает одиночные клетки
     }
 
-    private function getAverageCages(): Collection
+    private function getAverageCages(): ?Collection
     {
         //возвращает средние клетки
     }
 
-    private function getSpaciousCages(): Collection
+    private function getSpaciousCages(): ?Collection
     {
         //возвращает просторные клетки
     }
