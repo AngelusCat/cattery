@@ -10,22 +10,18 @@ class Cattery
     public function placeCatInCattery(Cat $cat): bool
     {
         if ($cat->isSick() || $cat->isAggressive()) {
-            $singleCage = $this->getSuitableSingleFreeCage();
-            if ($singleCage) {
-                $singleCage->addCat($cat);
-                return true;
-            }
+            /**/
         }
     }
 
-    private function getSuitableSingleFreeCage(): ?Cage
+/*    private function getSuitableSingleFreeCage(): ?Cage
     {
         $freeSingleCages = $this->getFreeSingleCages();
         if ($freeSingleCages->isEmpty()) {
             return null;
         }
         return $freeSingleCages->random();
-    }
+    }*/
 
     private function releaseSingleCage(): bool
     {

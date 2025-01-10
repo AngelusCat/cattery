@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Enums\CageType;
 use App\Enums\Gender;
 use App\ValueObjects\CageCapacity;
 use Doctrine\DBAL\Types\Types;
@@ -21,6 +22,8 @@ class Cage
     #[GeneratedValue]
     #[Column(type: Types::INTEGER)]
     private int $id;
+
+    private CageType $type;
     #[OneToMany(targetEntity: Cat::class)]
     private Collection $cats;
     //private CageCapacity $capacity;
@@ -91,5 +94,10 @@ class Cage
     public function containsOverlyActiveCats(): bool
     {
         //
+    }
+
+    public function getCageType(): CageType
+    {
+        return $this->type;
     }
 }
