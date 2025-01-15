@@ -2,7 +2,7 @@
 
 namespace App\Services\Strategy\CatCageFinder;
 
-use App\CatState\AggresiveCatState;
+use App\CatState\AggressiveCatState;
 use App\CatState\SickCatState;
 use App\CatState\TooActiveCatState;
 use App\Entities\Cage;
@@ -41,7 +41,7 @@ class CatCageFinderUsingDbSorting implements CatCageFinder
         }
 
         if ($cat->isAggressive()) {
-            return new AggresiveCatState();
+            return new AggressiveCatState();
         }
 
         if ($cat->isTooActive()) {

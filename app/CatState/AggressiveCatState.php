@@ -5,7 +5,7 @@ namespace App\CatState;
 use App\Entities\Cage;
 use App\Interfaces\CatState;
 
-class SickCatState extends CatState
+class AggressiveCatState extends CatState
 {
     public function findCages(): array
     {

@@ -5,9 +5,9 @@ namespace App\CatState;
 use App\Entities\Cage;
 use App\Interfaces\CatState;
 
-class TooActiveCatState implements CatState
+class TooActiveCatState extends CatState
 {
-    public function findCage(): Cage
+    public function findCages(): array
     {
         // TODO: Implement findCage() method.
     }

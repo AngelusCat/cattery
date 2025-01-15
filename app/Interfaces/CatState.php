@@ -3,8 +3,10 @@
 namespace App\Interfaces;
 
 use App\Entities\Cage;
+use App\Repositories\CageRepository;
 
-interface CatState
+abstract class CatState
 {
-    public function findCage(): Cage;
+    public function __construct(protected CageRepository $cageRepository){}
+    abstract public function findCages(): array;
 }
