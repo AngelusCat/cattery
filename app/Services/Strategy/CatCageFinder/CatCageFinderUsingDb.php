@@ -15,17 +15,20 @@ use App\Interfaces\CatState;
  * Класс критериев инкапсулирует в себе SQL-запрос
  */
 
-class CatCageFinderUsingDbSorting implements CatCageFinder
+class CatCageFinderUsingDb implements CatCageFinder
 {
     public function find(Cat $cat): Cage
     {
         //создать CatState на основе $cat
-        //$catState->findCage(); //вызовет метод репозитория и вернет Cage
+        //$catState->findCages(); //вызовет метод репозитория и вернет Cage
         //проверяем на половую совместимость
         //возвращаем клетку
         $catState = $this->createCatState($cat);
-        $cages = $catState->findCage();
-        if (!$cat->isSterilized()) {
+        $cages = $catState->findCages();
+
+        $cage = $cages[array_rand($cages)];
+
+        if (!$cat->isSterilized() && !$catState instanceof SickCatState && !$catState instanceof AggressiveCatState) {
             $cage = $this->getFirstCageThatPassesTestForSexualCompatibility($cages);
         }
 
@@ -51,6 +54,6 @@ class CatCageFinderUsingDbSorting implements CatCageFinder
 
     private function getFirstCageThatPassesTestForSexualCompatibility(array $cages): Cage
     {
-
+        //
     }
 }

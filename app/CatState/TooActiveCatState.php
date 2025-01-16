@@ -9,6 +9,6 @@ class TooActiveCatState extends CatState
 {
     public function findCages(): array
     {
-        // TODO: Implement findCage() method.
+        $cages = $this->cageRepository->getCagesWithoutSickAndAggressiveCats();
     }
 }

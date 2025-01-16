@@ -23,77 +23,44 @@ class Cage
     #[Column(type: Types::INTEGER)]
     private int $id;
 
+    #[Column(name: "cage_type", type: Types::STRING)]
     private CageType $type;
     #[OneToMany(targetEntity: Cat::class)]
     private Collection $cats;
-    //private CageCapacity $capacity;
-
-    /**
-     *добавить всех непосредственных соседей в очередь
-     * извлечь первого непосредственного соседа
-     * проверить его на условие
-     * условие выполнено => готово
-     * условие невыполнено => добавить соседей этого узла в конец очереди
-     *
-     * очередь пуста => нет подходящих клеток
-     *
-     * т.к. граф может иметь циклические ссылки, нужно проверять, проверялся ли узел раньше
-     *
-     * женская
-     * мужская
-     *
-     * стерилизованный
-     * нестерилизованный
-     *
-     * больной
-     * здоровый
-     *
-     * агрессивный
-     * спокойный
-     *
-     * активный
-     * спокойный
-     *
-     * кошка может быть в клетке с котами, если они стерилизованы или если она стерилизована => зависит от пола и стерилизации других кошек
-     *
-     * т.е. одна из сторон должна быть стерилизована
-     *
-     * кошка больна => живет одна => только свободная клетка => предпочтительно одиночная
-     *
-     * кошка агрессивна => живет одна => только свободная клетка => предпочтительно одиночная
-     *
-     * кошка активна => живет в определенных клетках => только средняя и просторная клетки
-     *
-     * спокойная => простой случай => живет где угодно
-     */
 
     public function addCat(Cat $cat): void
     {
         $this->cats->add($cat);
     }
-    public function removeCat(): void
+
+    public function catCanBePlacedInCage(Cat $cat): bool
     {
-        //
+        if ($cat->isSick() || $cat->isAggressive()) {
+            return false;
+        }
+
+        $currentCatWeight = ($cat->isTooActive()) ? 2 : 1;
+        $weightOfCatsInCage = $this->calculateWeightOfCatsInCage();
+        $totalWeightForCage = ($this->type->name === 'single') ? 1 : (($this->type->name === 'average') ? 2 : (($this->type->name === 'spacious') ? 3 : 0));
+
+        if ($totalWeightForCage - $weightOfCatsInCage === 0 || ($totalWeightForCage - $weightOfCatsInCage) - $currentCatWeight < 0) {
+            return false;
+        }
+
+        return true;
     }
 
-    public function isEmpty(): bool
+    private function calculateWeightOfCatsInCage(): int
     {
-        //
-    }
-
-    public function containsOnlyCatsOfTheSameGender(Gender $gender): bool
-    {
-        //
-    }
-
-    public function allCatsOfOppositeGenderInCageAreSterilized(Gender $gender): bool
-    {
-        //
-    }
-
-    public function containsOverlyActiveCats(): bool
-    {
-        //
+        $totalWeight = 0;
+        $this->cats->each(function (Cat $cat) use (&$totalWeight) {
+            if ($cat->isTooActive()) {
+                $totalWeight += 2;
+            } else {
+                $totalWeight += 1;
+            }
+        });
+        return $totalWeight;
     }
 
     public function getCageType(): CageType
